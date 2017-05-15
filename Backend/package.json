@@ -1,0 +1,31 @@
+{
+  "name": "cose-vr-backend",
+  "version": "1.0.0",
+  "description": "",
+  "main": "server.js",
+  "dependencies": {
+    "body-parser": "^1.17.1",
+    "cors": "^2.8.3",
+    "dotenv": "^4.0.0",
+    "express": "^4.15.2",
+    "morgan": "^1.8.1",
+    "mysql": "^2.13.0",
+    "nodeman": "^1.1.2"
+  },
+  "devDependencies": {},
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1",
+    "start": "ENV='prod' PORT=8000 node server.js",
+    "dev": "ENV='dev' PORT=8000 node server.js"
+  },
+  "keywords": [
+    "cose",
+    "coin",
+    "vr",
+    "backend",
+    "node",
+    "mysql"
+  ],
+  "author": "Andreas Gasser",
+  "license": "ISC"
+}
