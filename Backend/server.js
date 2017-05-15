@@ -149,7 +149,7 @@ router.route('/listinginfos/:listinginfos_id')
   });
 
 // start server and start listening
-app.use('/v1', router);
+app.use('/api/v1', router);
 
 if (env !== 'prod') {
   app.listen(port, function() { console.log('listening on port: ' + port)});

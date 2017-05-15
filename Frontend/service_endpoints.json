@@ -1,0 +1,7 @@
+{
+    "baseUrl": {
+        "local": "http://localhost:8000/api/v1",
+        "dev": "http://46.101.252.74:8000/api/v1",
+        "prod": "http://46.101.252.74:8000/api/v1"
+    }
+}

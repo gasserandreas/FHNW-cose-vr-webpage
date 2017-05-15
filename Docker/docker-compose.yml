@@ -1,5 +1,15 @@
 version: '2'
 services:
+
+  cose-frontend:
+    container_name: coin_frontend_container
+    restart: always
+    image: andreasgasser/cose-vr-frontend
+    links:
+      - cose-backend:backend
+    ports:
+      - "80:8090"
+
   cose-backend:
     container_name: coin_backend_container
     restart: always
@@ -8,6 +18,7 @@ services:
       - mysql:db
     ports:
       - "8000:8000"
+
   mysql:
     container_name: coin_mysql_container
     restart: always
