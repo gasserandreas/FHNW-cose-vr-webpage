@@ -1,0 +1,72 @@
+@import url('https://fonts.googleapis.com/css?family=Lato:100,100i,300,300i,400,400i,700,700i,900,900i');
+@import url('https://fonts.googleapis.com/css?family=Heebo:100,300,400,700');
+@import url('https://maxcdn.bootstrapcdn.com/font-awesome/4.4.0/css/font-awesome.min.css');
+@import url('https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css');
+
+// vars
+$font-color: #333333;
+$font-color-light: #999999;
+$font-color-hover: #E44C16;
+
+$link-color: #0064a1;
+$link-color-hover: $font-color-hover;
+
+$border-color: #CECECE;
+
+$background-color: #FFFFFF;
+$background-color-dark: #f9f9fb;
+$background-color-hover: #F2F2F2;
+
+$border-weight: 1px;
+$border-radius: 3px;
+
+// put your scss styles here
+html {
+    height: 100%;
+    background-color: $background-color;
+}
+
+body {
+    min-height: 100%;
+    display: flex;
+    flex-direction: column;
+    margin: 0;
+    padding: 1em;
+}
+
+button:disabled,
+input:disabled {
+    cursor: not-allowed;
+}
+
+.content {
+    flex: 1;
+}
+
+.line-divider {
+    border-bottom: 1px solid $border-color;
+}
+
+.box {
+    border: $border-weight solid $border-color;
+    border-radius: $border-radius;
+}
+
+.list {
+    list-style: none;
+    padding: 0;
+}
+
+// page styles
+.index-view {
+  .demo {
+    padding: 5rem, 2rem;
+    text-align: center;
+  }
+}
+
+.search-item-view {
+  button {
+    margin-bottom: 20px;
+  }
+}

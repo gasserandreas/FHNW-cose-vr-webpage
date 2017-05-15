@@ -1,0 +1,12 @@
+{
+  "LOGIN.WELCOME_NEXT_GENERATION": "Willkommen bei der nächsten Race Tracking Generation",
+  "LOGIN.USERNAME": "Benutzername",
+  "LOGIN.PASSWORD": "Passwort",
+  "LOGIN.LOGIN": "Anmelden",
+  "LOGIN.NO_ACCOUNT_YET": "Hast du noch kein Benutzerkonto? <a href=\"/signup\" title=\"Registriere dich\">Registriere dich</a>!",
+  "LOGIN.IF_FORGOT_PASSWORD": "Wenn du dein Passwort vergessen hast, <a href=\"mailto::\" title=\"kontaktier uns\">kontaktier uns</a>.",
+  "LOGIN.WRONG_CREDENTIALS": "Falscher Benutzername und / oder Passwort.",
+  "LOGIN.LOGGED_IN_TITLE": "Angemeldet",
+  "LOGIN.LOGGED_IN_TEXT": "Sie sind angemeldet als {username}",
+  "LOGIN.LOGOUT": "Abmelden"
+}

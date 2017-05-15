@@ -5,6 +5,7 @@
 
 ## Buil Commands
 ```docker build -t andreasgasser/cose-vr-backend .```
+```docker build -t andreasgasser/cose-vr-frontend .```
 
 ## Run Commands
 ```docker-compose up -d```
