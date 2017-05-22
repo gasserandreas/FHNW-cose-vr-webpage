@@ -12,6 +12,7 @@ import {
   PATH_MAP,
   PATH_SEARCH_ITEM,
   PATH_ABOUT,
+  PATH_STATISTICS,
 } from '../../../paths';
 
 const navigationItems = [
@@ -29,6 +30,11 @@ const navigationItems = [
     id: 3,
     name: 'About',
     path: PATH_ABOUT,
+  },
+  {
+    id: 4,
+    name: 'Statistics',
+    path: PATH_STATISTICS,
   },
 ];
 
