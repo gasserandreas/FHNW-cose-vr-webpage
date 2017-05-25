@@ -1,4 +1,6 @@
 .DS_Store
+.idea
+Frontend.iml
 /**/node_modules/
 /**/.DS-Store
 /**/npm-debug.log
