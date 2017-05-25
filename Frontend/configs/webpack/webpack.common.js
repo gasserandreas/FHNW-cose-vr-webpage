@@ -50,6 +50,9 @@ module.exports = {
   },
   plugins: [
     new webpack.NoEmitOnErrorsPlugin(),
+    new webpack.ProvidePlugin({
+      'd3': 'd3'
+    }),
     new HtmlWebpackPlugin({
       title: 'RaceAnalyse',
       template: './src/index.html',
