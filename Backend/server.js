@@ -61,7 +61,9 @@ router.route('/info')
               `${req.headers.host}/${version}/conditions`,
               `${req.headers.host}/${version}/conditions/id`,
               `${req.headers.host}/${version}/listinginfos`,
-              `${req.headers.host}/${version}/listinginfos/id`, 
+              `${req.headers.host}/${version}/listinginfos/id`,
+              `${req.headers.host}/${version}/sellingstatusdbbodel`,
+              `${req.headers.host}/${version}/sellingstatusdbbodel/id`
             ],
             numberOfSearchItems: rows1,
             numberOfConditions: rows2,
@@ -139,6 +141,30 @@ router.route('/listinginfos')
 router.route('/listinginfos/:listinginfos_id')
   .get((req, res) => {
     db.query(`SELECT * FROM ListingInfos WHERE Id = '${req.params.listinginfos_id}'`, function(err, rows, fields) {
+
+      if (err) {
+        res.send(err);
+      } else {
+        res.json(rows);
+      }
+    });
+  });
+
+router.route('/sellingstatusdbbodel')
+  .get((req, res) => {
+    db.query('SELECT * FROM SellingStatusDbModel', function(err, rows, fields) {
+
+      if (err) {
+        res.send(err);
+      } else {
+        res.json(rows);
+      }
+    });
+  });
+
+router.route('/sellingstatusdbbodel/:sellingstatusdbbodel_id')
+  .get((req, res) => {
+    db.query(`SELECT * FROM SellingStatusDbModel WHERE Id = '${req.params.sellingstatusdbbodel_id}'`, function(err, rows, fields) {
 
       if (err) {
         res.send(err);
