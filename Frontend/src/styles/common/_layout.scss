@@ -1,0 +1,475 @@
+.menu-container {
+  margin: 0;
+  padding: 0;
+  top: 0;
+  left: 0;
+  position: absolute;
+  z-index: 3;
+
+  ul {
+    margin: 0;
+    padding: 0.5rem;
+    list-style-type: none;
+
+    li {
+      padding: 0 0.25rem;
+      display: inline-block;
+
+      button.link {
+        margin: -0.250rem 0 0 0;
+        padding: 0;
+        background-color: transparent;
+        border: none;
+        cursor: pointer;
+        vertical-align: middle;
+
+        span {
+          font-size: 1.25rem;
+          display: inline-block;
+          line-height: 40px;
+          vertical-align: middle;
+          text-transform: uppercase;
+          font-weight: 100;
+        }
+
+        i {
+          font-size: 2.5rem;
+          vertical-align: middle;
+          margin-right: 0.250rem;
+          line-height: 1rem;
+        }
+
+      }
+
+      a {
+        text-decoration: none;
+        color: $color-dark-grey;
+        cursor: pointer;
+      }
+    }
+  }
+}
+
+.banner {
+  margin: 0;
+  padding: 0;
+  width: 100%;
+  height: 700px;
+  position: relative;
+  display: flex;
+  align-content: center;
+  align-items: center;
+  justify-content: center;
+  flex-direction: column;
+  transition: all 0.3s;
+
+  @media all and (max-width: $breakpoint-md) {
+    height: 450px;
+  }
+
+  @media all and (max-width: $breakpoint-xs) {
+    height: 250px;
+  }
+
+  h1 {
+    margin: 0;
+    padding: 0;
+    color: $color-dark-blue;
+    font-size: 5rem;
+    text-transform: uppercase;
+    position: relative;
+    z-index: 1;
+    transition: all 0.3s;
+    text-align: center;
+
+    @media all and (max-width: $breakpoint-md) {
+      font-size: 3.25rem;
+    }
+
+    @media all and (max-width: $breakpoint-xs) {
+      font-size: 2.5rem;
+    }
+  }
+
+  h2 {
+    margin: 0.5rem 0 0;
+    padding: 0;
+    font-size: 1.5rem;
+    font-weight: 100;
+    text-transform: uppercase;
+    color: $color-dark-blue;
+    position: relative;
+    z-index: 1;
+    transition: all 0.3s;
+    text-align: center;
+
+    @media all and (max-width: $breakpoint-md) {
+      margin-top: 0.25rem;
+      font-size: 1.25rem;
+    }
+
+    @media all and (max-width: $breakpoint-xs) {
+      margin-top: 0.25rem;
+      font-size: 1rem;
+    }
+  }
+
+  .network-left {
+    margin: 0;
+    padding: 0;
+    left: 0;
+    bottom: 0;
+    width: 270px;
+    height: 360px;
+    position: absolute;
+    background-image: url('/assets/images/header-left.png');
+    background-size: cover;
+    z-index: 0;
+    transition: all 0.3s;
+
+    @media all and (max-width: $breakpoint-md) {
+      width: 210px;
+      height: 280px;
+    }
+
+    @media all and (max-width: $breakpoint-xs) {
+      opacity: 0.15;
+      width: 180px;
+      height: 240px;
+    }
+  }
+
+  .network-right {
+    @extend .network-left;
+    left: auto;
+    right: 0;
+    top: 0;
+    bottom: auto;
+    width: 360px;
+    height: 390px;
+    background-image: url('/assets/images/header-right.png');
+    background-size: cover;
+    z-index: 0;
+
+    @media all and (max-width: $breakpoint-md) {
+      width: 210px;
+      height: 240px;
+    }
+
+    @media all and (max-width: $breakpoint-xs) {
+      width: 180px;
+      height: 195px;
+    }
+  }
+}
+
+.dark-bg-container {
+  margin: 0;
+  padding: 4rem 0;
+  background-color: $color-dark-blue;
+  color: $color-white;
+
+  @media all and (max-width: $breakpoint-xs) {
+    padding: 2rem 0;
+  }
+}
+
+.light-bg-container {
+  @extend .dark-bg-container;
+  background-color: $color-light-grey;
+  color: $color-dark-grey;
+}
+
+.white-bg-container {
+  @extend .light-bg-container;
+  background-color: $color-white;
+}
+
+.content-container {
+  margin: 0 auto;
+  padding: 0 1rem;
+  width: 100%;
+  max-width: 1200px;
+  position: relative;
+
+  h2 {
+    margin: 0;
+    padding: 0;
+    font-size: 2rem;
+    font-weight: 700;
+    text-align: center;
+    text-transform: uppercase;
+    transition: all 0.3s;
+
+    @media all and (max-width: $breakpoint-xs) {
+      font-size: 1.25rem;
+    }
+  }
+
+  h3 {
+    margin: 0 0 4rem;
+    padding: 0;
+    font-size: 1.5rem;
+    font-weight: 300;
+    text-align: center;
+    text-transform: uppercase;
+    transition: all 0.3s;
+
+    @media all and (max-width: $breakpoint-xs) {
+      margin-bottom: 2rem;
+      font-size: 0.875rem;
+    }
+  }
+}
+
+.business {
+  h4 {
+    margin: 0;
+    padding: 0;
+    font-size: 1.5rem;
+    font-weight: 600;
+    text-transform: uppercase;
+    transition: all 0.3s;
+
+    @media all and (max-width: $breakpoint-md) {
+      margin-top: 1rem;
+    }
+
+    @media all and (max-width: $breakpoint-xs) {
+      font-size: 1rem;
+    }
+  }
+
+  .reversed {
+    flex-direction: row-reverse;
+
+    .off-md-1 {
+    }
+  }
+
+  p {
+    margin: 1rem 0 0;
+    padding: 0;
+    font-size: 1rem;
+    line-height: 1.500rem;
+    text-align: justify;
+
+    @media all and (max-width: $breakpoint-xs) {
+      font-size: 0.875rem;
+      line-height: 1.5rem;
+    }
+  }
+
+  div.image-container {
+    text-align: center;
+
+    img {
+      max-width: 100%;
+      display: inline-block;
+    }
+  }
+}
+
+.table-container {
+  max-height: 780px;
+  overflow: hidden;
+  overflow-y: scroll;
+}
+
+table {
+  margin: 0;
+  padding: 0;
+  width: 100%;
+  border-radius: 0.5rem;
+  border-collapse: collapse;
+
+  thead tr {
+    background-color: $color-light-blue;
+    color: $color-white;
+    border-radius: 0.5rem 0.5rem 0 0;
+
+    th {
+      margin: 0;
+      padding: 1rem 1rem;
+      font-weight: 100;
+      text-align: left;
+
+      &:first-child {
+        border-radius: 0.5rem 0 0 0;
+      }
+      &:last-child {
+        border-radius: 0 0.5rem 0 0;
+      }
+    }
+  }
+
+  tbody tr {
+    background-color: $color-white;
+    border-bottom: 1px solid $color-light-grey;
+
+    &:last-child {
+      border-bottom: none;
+
+      td:first-child {
+        border-radius: 0 0 0 0.5rem;
+      }
+
+      td:last-child {
+        border-radius: 0 0 0.5rem 0;
+      }
+    }
+
+    td {
+      margin: 0;
+      padding: 1rem 1rem;
+      font-weight: 100;
+      text-align: left;
+      text-transform: uppercase;
+
+      @media all and (max-width: $breakpoint-xs) {
+        font-size: 0.825rem;
+      }
+
+      &.product {
+        width: 600px;
+      }
+    }
+  }
+
+  @media all and (max-width: $breakpoint-sm) {
+
+    thead tr th {
+      font-size: 0;
+      width: auto;
+      display: block;
+      margin: 0;
+      padding: 2px;
+    }
+
+    td {
+      padding: 0.250rem 1rem 0.250rem 7rem !important;
+      display: block;
+      position: relative;
+
+      &.product {
+        width: 100% !important;
+      }
+
+      &:before {
+        top: 0.250rem;
+        left: 1rem;
+        position: absolute;
+        content: attr(data-title);
+        text-transform: uppercase;
+        font-size: 0.750rem;
+        font-weight: 600;
+      }
+
+      &.text-right-align {
+        text-align: left;
+      }
+    }
+  }
+}
+
+.text-right-align {
+  text-align: right;
+}
+
+.input-container.search {
+  margin: 0;
+  padding: 0;
+  display: inline-block;
+  position: relative;
+
+  input {
+    padding-right: 2.5rem;
+  }
+
+  &:after {
+    top: 0.500rem;
+    content: '\f4a5';
+    right: 0.500rem;
+    font-family: 'Ionicons', sans-serif;
+    position: absolute;
+  }
+}
+
+.team {
+
+  .row > div {
+    margin-top: 1rem;
+    margin-bottom: 1rem;
+    position: relative;
+  }
+
+  p {
+
+    .name {
+      margin: 0;
+      padding: 0;
+      font-size: 1.250rem;
+      font-weight: 700;
+      text-transform: uppercase;
+      display: block;
+    }
+
+    padding-left: 6rem;
+
+    @media all and(max-width: -1 + $breakpoint-sm) {
+      padding: 0;
+      text-align: center;
+    }
+
+  }
+
+  .image-container {
+    margin: 0;
+    padding: 0;
+    left: 0;
+    width: 5.25rem;
+    height: 5.25rem;
+    line-height: 5.25rem;
+    vertical-align: middle;
+    position: absolute;
+
+    @media all and(max-width: -1 + $breakpoint-sm) {
+      position: relative;
+      margin: 0 auto;
+
+    }
+
+    img {
+      width: 100%;
+      max-width: 100%;
+      border-radius: 100%;
+      border: 1px solid $color-dark-grey;
+    }
+
+  }
+}
+
+.footer {
+  margin: 0;
+  padding: 1rem 0;
+  background-color: $color-dark-blue;
+  position: relative;
+  height: 3.75rem;
+
+  .left {
+    margin: 0;
+    padding: 0;
+    top: 1.250rem;
+    left: 1rem;
+    color: $color-white;
+    position: absolute;
+    text-transform: uppercase;
+    font-weight: 100;
+  }
+
+  .right {
+    @extend .left;
+    right: 1rem;
+    left: auto;
+  }
+}
