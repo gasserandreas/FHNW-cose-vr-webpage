@@ -1,16 +1,100 @@
 
+const createDeviceObject = (row) => {
+    return {
+        id: row.ItemId,
+        title: row.Titel,
+        conditionId: row.ConditionId,
+        listingInfoId: row.ListingInfoId,
+        sellingStatusId: row.SellingStatusId,
+        urls: {
+            gallery: row.GalleryUrl,
+            item: row.ViewItemUrl,
+        },
+        category: {
+            id: row.CategoryId,
+            name: row.CategoryName,
+        },
+        location: {
+            zip: row.PostalCode,
+            country: row.Country,
+            location: row.Location,
+            latitude: row.Latitude,
+            longitude: row.Longitude,
+        },
+        shipping: {
+            locations: row.ShipToLocations,
+            cost: row.ShippingCost,
+            currency: row.ShippingCurrency,
+        },
+        device: {
+            id: row.DeviceId,
+            name: row.DeviceName,
+        },
+    };
+};
+
 const getAllItems = (db) => {
     const promise = new Promise((resolve, reject) => {
-        db.query('SELECT * FROM SearchItems', function(err, rows, fields) {
+        const query = `SELECT DISTINCT
+    items.*,
+    device.id as DeviceId,
+    device.name as DeviceName
+FROM SearchItems items
+LEFT JOIN TagToItem tagToItem
+    ON items.ItemId = tagToItem.ItemId
+LEFT JOIN Tag tag
+    ON tagToItem.TagId = tag.id
+LEFT JOIN TagToDevice tagToDevice
+    ON tagToDevice.TagId = tag.id
+LEFT JOIN Device device
+    ON device.id = tagToDevice.DeviceId
+WHERE device.name IS NOT NULL`;
+        db.query(query, function(err, rows, fields) {
             if (err) {
             reject(err);
           } else {
-            resolve(rows);
+
+            const items = [];
+            rows.forEach((row) => {
+                const item = createDeviceObject(row);
+                items.push(item);
+            });
+
+            resolve(items);
           }
         });
     });
     return promise;
 };
+
+const getItemWithId = (db, id) => {
+    const promise = new Promise((resolve, reject) => {
+        const query = `SELECT DISTINCT
+    items.*,
+    device.id as DeviceId,
+    device.name as DeviceName
+FROM SearchItems items
+LEFT JOIN TagToItem tagToItem
+    ON items.ItemId = tagToItem.ItemId
+LEFT JOIN Tag tag
+    ON tagToItem.TagId = tag.id
+LEFT JOIN TagToDevice tagToDevice
+    ON tagToDevice.TagId = tag.id
+LEFT JOIN Device device
+    ON device.id = tagToDevice.DeviceId
+WHERE device.name IS NOT NULL AND items.ItemId = '${id}'`;
+
+        db.query(query, function(err, row, fields) {
+            if (err) {
+            reject(err);
+          } else {
+            const item = createDeviceObject(row[0]);
+            resolve(item);
+          }
+        });
+    });
+    return promise;
+}
 
 const analyseDevices = (db) => {
     return new Promise((resolve, reject) => {
@@ -175,5 +259,6 @@ const analyseDevices = (db) => {
 
 module.exports = {
     getAllItems,
+    getItemWithId,
     analyseDevices
 };
