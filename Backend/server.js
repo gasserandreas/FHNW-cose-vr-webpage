@@ -5,7 +5,11 @@ const logger = require('morgan');
 const mysql = require('mysql');
 require('dotenv').config(); // get .env credentials
 
+const factory = require('./factory.js');
+
 const app = express();
+
+let analyseDevicesRunning = false;
 
 // basic configuration
 const port = process.env.PORT || 80;        // set our port
@@ -173,6 +177,28 @@ router.route('/sellingstatusdbbodel/:sellingstatusdbbodel_id')
       }
     });
   });
+
+router.route('/map/items')
+  .get((req, res) => {
+    factory.getAllItems(db)
+    .then((rows) => {
+      res.json(rows);
+    })
+    .catch((error) => {
+      res.send(error);
+    })
+  });
+
+router.route('/analyse/devices')
+  .get((req, res) => {
+    factory.analyseDevices(db)
+    .then((data) => {
+      res.json(data);
+    })
+    .catch((error) => {
+      res.send(error);
+    });
+  })
 
 // start server and start listening
 app.use('/api/v1', router);
