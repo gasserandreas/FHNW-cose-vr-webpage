@@ -6,3 +6,4 @@ Frontend.iml
 /**/npm-debug.log
 /**/.env*
 /**/yarn.lock
+/**/build
