@@ -33,6 +33,25 @@ const createDeviceObject = (row) => {
     };
 };
 
+const createLocation = (item, id) => {
+    const object = {
+        id: id,
+        zip: item.PostalCode,
+        country: item.Country,
+        location: item.Location,
+        latitude: item.Latitude,
+        longitude: item.Longitude,
+        items: [item],
+        devices: [
+            {
+                id: item.DeviceId,
+                name: item.DeviceName,
+            },
+        ],
+    };
+    return object;
+};
+
 const getAllItems = (db) => {
     const promise = new Promise((resolve, reject) => {
         const query = `SELECT DISTINCT
@@ -94,7 +113,73 @@ WHERE device.name IS NOT NULL AND items.ItemId = '${id}'`;
         });
     });
     return promise;
-}
+};
+
+const getAllLocation = (db) => {
+    const promise = new Promise((resolve, reject) => {
+         const query = `SELECT DISTINCT
+    items.*,
+    device.id as DeviceId,
+    device.name as DeviceName
+FROM SearchItems items
+LEFT JOIN TagToItem tagToItem
+    ON items.ItemId = tagToItem.ItemId
+LEFT JOIN Tag tag
+    ON tagToItem.TagId = tag.id
+LEFT JOIN TagToDevice tagToDevice
+    ON tagToDevice.TagId = tag.id
+LEFT JOIN Device device
+    ON device.id = tagToDevice.DeviceId
+WHERE device.name IS NOT NULL AND items.Longitude IS NOT NULL AND items.Latitude IS NOT NULL`;
+        db.query(query, (err, items, fields) => {
+            const locations = [];
+            var i = 1;
+
+            items.forEach((item) => {
+
+                var searchTerm = `${item.Latitude}-${item.Longitude}`;
+                var index = -1;
+                for(var i = 0, len = locations.length; i < len; i++) {
+                    const innerSearchTerm = `${locations[i].latitude}-${locations[i].longitude}`;
+                    if (innerSearchTerm === searchTerm) {
+                        index = i;
+                        break;
+                    }
+                }
+
+                let location;
+                if (index === -1) {
+                    // create new location
+                    location = createLocation(item, i);
+
+                    locations.push(location);
+                } else {
+                    location = locations[index];
+
+                    // add data to location
+                    location.items.push(item);
+
+                    const device = {
+                        id: item.DeviceId,
+                        name: item.DeviceName,
+                    };
+
+                    location.devices.push(device);
+
+                    // save new location object
+                    locations[index] = location;
+                }
+                i = i + 1;
+            });
+
+            console.log(locations.length);
+            resolve(locations);
+            // console.log(locations);
+            // resolve(locations);
+        });
+    });
+    return promise;
+};
 
 const analyseDevices = (db) => {
     return new Promise((resolve, reject) => {
@@ -117,6 +202,7 @@ const analyseDevices = (db) => {
                     //const tags = tagRows.filter((tag) => tagToItemRows.map(row => row.ItemId).includes()
 
                     const tags = tagRows;
+                    const tagsToItems = tagToItemRows;
                     const newTags = [];
                     const newTagsToItems = [];
 
@@ -176,8 +262,9 @@ const analyseDevices = (db) => {
                             };
 
                             // check if item is already in array (yeaah I know, very very bad code...)
-                            if (newTagsToItems.filter((item) => item.tagId === tag.id).map(item => item.itemId).indexOf(itemId) === -1) {
+                            if (tagsToItems.filter((item) => item.tagId === tag.id).map(item => item.itemId).indexOf(itemId) === -1) {
                                 newTagsToItems.push(newTagToItem);
+                                tagsToItems.push(newTagToItem);
                             }
                         });
                     });
@@ -260,5 +347,6 @@ const analyseDevices = (db) => {
 module.exports = {
     getAllItems,
     getItemWithId,
-    analyseDevices
+    analyseDevices,
+    getAllLocation
 };
