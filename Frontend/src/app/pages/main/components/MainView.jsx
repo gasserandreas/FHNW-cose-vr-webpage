@@ -4,6 +4,7 @@ import ReactDOM from 'react-dom';
 import { slide as Menu } from 'react-burger-menu';
 
 import Header from './Header';
+import MapViewContainer from '../../map/containers/MapViewContainer';
 
 class MainView extends Component {
   constructor(props) {
@@ -64,7 +65,7 @@ class MainView extends Component {
             </div>
             <div className="row">
               <div className="col-xxs-12" style={{ minHeight: '750px' }}>
-                <center>Place here your map component</center>
+                <MapViewContainer />
               </div>
             </div>
           </div>
