@@ -13,6 +13,7 @@ export function getEnv() {
   } else {
     env = 'prod';
   }
+  return 'local';
   return env;
 }
 

@@ -29,7 +29,7 @@ class MapView extends Component {
         radius: deaths / 7500,
         latitude: lat,
         longitude: lng,
-        fillKey: 'bubbleFill'
+        fillKey: 'bubbleFill',
       };
     });
     return bubbles;
@@ -43,28 +43,14 @@ class MapView extends Component {
     const bubbles = locationsIds.map((id) => {
       const item = locationsById[id];
 
-      const { zip, location, latitude, longitude, items } = item;
-
-      const name = location;
+      const { Latitude, Longitude } = item;
 
       return {
-        name,
-        radius: 2,
-        latitude,
-        longitude,
+        radius: 1.5,
+        latitude: Latitude,
+        longitude: Longitude,
         fillKey: 'bubbleFill',
       };
-      /*
-      const { location, lat, lng, magnitude, deaths } = item;
-
-      return {
-        name: location,
-        radius: deaths / 7500,
-        latitude: lat,
-        longitude: lng,
-        fillKey: 'bubbleFill'
-      };
-      */
     });
     return bubbles;
   }
@@ -103,7 +89,7 @@ class MapView extends Component {
         scope="world"
         geographyConfig={{
           popupOnHover: false,
-          highlightOnHover: false // false
+          highlightOnHover: false, // false
         }}
         fills={{
           defaultFill: '#EEEEEE',
@@ -112,7 +98,7 @@ class MapView extends Component {
         bubbles={bubbles}
         bubbleOptions={{
           borderWidth: 1,
-          borderColor: '#FF0000'
+          borderColor: '#FF0000',
         }}
       />
     );

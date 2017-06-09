@@ -51,9 +51,9 @@ const mapDataLoadAllLocationsSuccess = (locations) => {
   const locationsObject = {};
   const locationsIds = [];
 
-  locations.forEach((location) => {
-    const { id } = location;
-    locationsObject[id] = { ...location };
+  locations.forEach((location, i) => {
+    const id = i;
+    locationsObject[id] = { ...location, id };
     locationsIds.push(id);
   });
 
