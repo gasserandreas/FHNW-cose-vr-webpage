@@ -1,92 +1,86 @@
 import React, { Component, PropTypes } from 'react';
 import Datamap from './DataMapComponent';
 
+const scopes = {
+  world: 'world',
+  usa: 'usa',
+};
+
+const initialState = {
+  scope: scopes.world,
+};
+
 class MapView extends Component {
   constructor(props) {
     super(props);
 
+    this.state = initialState;
+
+    this.handleOnChange = this.handleOnChange.bind(this);
+
+    this.renderViewOption = this.renderViewOption.bind(this);
     this.renderMap = this.renderMap.bind(this);
-    this.createDataMapBubbles = this.createDataMapBubbles.bind(this);
+    this.renderBubbles = this.renderBubbles.bind(this);
   }
 
   componentDidMount() {
-    this.props.loadMapData();
     this.props.loadMapLocations();
   }
 
-  createDataMapBubbles() {
-    const { earthquakeById, earthquakeIds } = this.props;
-
-    //const radius = 10;
-
-    const bubbles = earthquakeIds.map((id) => {
-      const item = earthquakeById[id];
-
-      const { location, lat, lng, magnitude, deaths } = item;
-
-      return {
-        name: location,
-        radius: deaths / 7500,
-        latitude: lat,
-        longitude: lng,
-        fillKey: 'bubbleFill',
-      };
-    });
-    return bubbles;
+  handleOnChange(key) {
+    return (event) => {
+      const { value } = event.target;
+      const newState = { ...this.state };
+      newState[key] = value;
+      this.setState(newState);
+    };
   }
 
-  createDataMapBubbles2() {
-    const { locationsById, locationsIds } = this.props;
+  renderViewOption() {
+    return (
+      <select
+        onChange={this.handleOnChange('scope')}
+        value={this.state.scope}
+      >
+        {Object.keys(scopes).map((key) => {
+          const scope = scopes[key];
+          return (
+            <option
+              key={scope}
+              value={scope}
+            >{scope}</option>
+          )
+        })}
+      </select>
+    );
+  }
 
-    //const radius = 10;
+  renderBubbles() {
+    const { locationsIds, locationsById } = this.props;
 
-    const bubbles = locationsIds.map((id) => {
-      const item = locationsById[id];
-
-      const { Latitude, Longitude } = item;
+    return locationsIds.map((id) => {
+      const location = locationsById[id];
+      const { name, Latitude, Longitude } = location;
 
       return {
-        radius: 1.5,
+        name,
         latitude: Latitude,
         longitude: Longitude,
+        radius: 1.5,
         fillKey: 'bubbleFill',
-      };
+      }
     });
-    return bubbles;
   }
 
   renderMap() {
-    const bubbles = this.createDataMapBubbles2();
+    const { scope } = this.state;
 
-    /*
-     fills={{
-     'USA': '#1f77b4',
-     'RUS': '#9467bd',
-     'PRK': '#ff7f0e',
-     'PRC': '#2ca02c',
-     'IND': '#e377c2',
-     'GBR': '#8c564b',
-     'FRA': '#d62728',
-     'PAK': '#7f7f7f',
-     defaultFill: '#EDDC4E',
-     bubbleFill: '#DD0000',
-     }}
-     data={{
-     'RUS': {fillKey: 'RUS'},
-     'PRK': {fillKey: 'PRK'},
-     'PRC': {fillKey: 'PRC'},
-     'IND': {fillKey: 'IND'},
-     'GBR': {fillKey: 'GBR'},
-     'FRA': {fillKey: 'FRA'},
-     'PAK': {fillKey: 'PAK'},
-     'USA': {fillKey: 'USA'},
-     }}
-     */
+    const bubbles = this.renderBubbles();
 
     return (
       <Datamap
         responsive
-        scope="world"
+        scope={scope}
         geographyConfig={{
           popupOnHover: false,
           highlightOnHover: false, // false
@@ -105,22 +99,30 @@ class MapView extends Component {
   }
 
   render() {
-    const { earthquakeIds, locationsIds, isFetching } = this.props;
+    const { isFetching, locationsIds } = this.props;
     return (
-      <div className="map-view">
-        { isFetching && <p>Loading...</p> }
-        { locationsIds.length > 0 && this.renderMap() }
+      <div className="row">
+        <div className="view-option">
+          Show map as { this.renderViewOption() }
+        </div>
+        <div className="col-xxs-12">
+          <div className="filter">
+          </div>
+        </div>
+        <div className="col-xxs-12" style={{ minHeight: '750px' }}>
+          <div className="map-view">
+            { isFetching && <p>Loading...</p> }
+            { locationsIds.length > 0 && this.renderMap() }
+          </div>
+        </div>
       </div>
-    );
+    )
   }
 }
 
 MapView.propTypes = {
-  earthquakeById: PropTypes.object,
-  earthquakeIds: PropTypes.arrayOf(PropTypes.number),
   locationsById: PropTypes.object,
   locationsIds: PropTypes.arrayOf(PropTypes.number),
-  loadMapData: PropTypes.func.isRequired,
   loadMapLocations: PropTypes.func.isRequired,
 };
 
