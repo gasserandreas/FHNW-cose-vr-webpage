@@ -256,20 +256,9 @@ router.route('/items/:item_id')
 
 router.route('/locations')
   .get((req, res) => {
-    factory.getAllLocation(db)
+    factory.getAllLocations(db)
     .then((rows) => {
       res.json(rows);
-    })
-    .catch((error) => {
-      res.send(error);
-    });
-  })
-
-router.route('/analyse/devices')
-  .get((req, res) => {
-    factory.analyseDevices(db)
-    .then((data) => {
-      res.json(data);
     })
     .catch((error) => {
       res.send(error);
