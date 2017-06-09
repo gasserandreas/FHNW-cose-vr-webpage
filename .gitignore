@@ -1,5 +1,6 @@
 .DS_Store
 .idea
+/**/credentials.php
 Frontend.iml
 /**/node_modules/
 /**/.DS-Store
