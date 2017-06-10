@@ -91,7 +91,7 @@ export default class Datamap extends React.Component {
       map = this.map = new Datamaps({
         ...props,
         data,
-        element: this.refs.container
+        element: this.refs.container,
       });
     } else {
       map.updateChoropleth(data, updateChoroplethOptions);

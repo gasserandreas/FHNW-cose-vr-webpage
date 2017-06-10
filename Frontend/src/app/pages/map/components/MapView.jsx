@@ -8,6 +8,17 @@ const scopes = {
 
 const initialState = {
   scope: scopes.world,
+  device: '0',
+};
+
+const colors = {
+  1: '#342cbd',
+  2: '#ff7f0e',
+  3: '#2ca02c',
+  4: '#c6e33f',
+  5: '#8c564b',
+  6: '#d62728',
+  7: '#1f77b4',
 };
 
 class MapView extends Component {
@@ -19,12 +30,15 @@ class MapView extends Component {
     this.handleOnChange = this.handleOnChange.bind(this);
 
     this.renderViewOption = this.renderViewOption.bind(this);
+    this.renderFilters = this.renderFilters.bind(this);
     this.renderMap = this.renderMap.bind(this);
     this.renderBubbles = this.renderBubbles.bind(this);
   }
 
   componentDidMount() {
     this.props.loadMapLocations();
+    this.props.loadDevices();
+    this.props.loadItems();
   }
 
   handleOnChange(key) {
@@ -45,17 +59,14 @@ class MapView extends Component {
         {Object.keys(scopes).map((key) => {
           const scope = scopes[key];
           return (
-            <option
-              key={scope}
-              value={scope}
-            >{scope}</option>
+            <option key={scope} value={scope}>{scope}</option>
           )
         })}
       </select>
     );
   }
 
-  renderBubbles() {
+  renderBubbles(locations) {
     const { locationsIds, locationsById } = this.props;
 
     return locationsIds.map((id) => {
@@ -73,9 +84,35 @@ class MapView extends Component {
   }
 
   renderMap() {
-    const { scope } = this.state;
+    const { locationsIds, locationsById, itemIds, itemById } = this.props;
+    const { scope, device } = this.state;
 
-    const bubbles = this.renderBubbles();
+    // get proper locations
+    const locations = device === '0'
+      ? itemIds.map(id => itemById[id])
+      : itemIds.map(id => itemById[id])
+        .filter(item => {
+          return item.device.id === parseInt(device);
+        });
+
+    // create bubbles
+    const bubbles = locations.map((location) => {
+      const { device, name, latitude, longitude } = location;
+      const fillKey = device.id;
+      return {
+        name,
+        latitude: latitude,
+        longitude: longitude,
+        radius: 2.5,
+        fillKey,
+      };
+    });
+
+    const fills = {
+      ...colors,
+      defaultFill: '#EEEEEE',
+      bubbleFill: '#DD0000',
+    };
 
     return (
       <Datamap
@@ -85,34 +122,59 @@ class MapView extends Component {
           popupOnHover: false,
           highlightOnHover: false, // false
         }}
-        fills={{
-          defaultFill: '#EEEEEE',
-          bubbleFill: '#DD0000',
-        }}
+        fills={fills}
         bubbles={bubbles}
         bubbleOptions={{
-          borderWidth: 1,
+          borderWidth: 0,
           borderColor: '#FF0000',
         }}
       />
     );
   }
 
+  renderFilters() {
+    const { device } = this.state;
+    const { devicesIds, devicesById } = this.props;
+    return (
+      <div className="filter-section">
+        <div className="filter">
+          <label>Device</label>
+
+          { devicesIds.length > 0 && (
+            <select
+              value={device}
+              onChange={this.handleOnChange('device')}
+            >
+              <option value="0">All devices</option>
+              { devicesIds.map((id) => {
+                  const item = devicesById[id];
+                  return (
+                    <option key={item.id} value={item.id}>{item.name}</option>
+                  );
+                })
+              }
+            </select>
+          )}
+        </div>
+      </div>
+    );
+  }
+
   render() {
-    const { isFetching, locationsIds } = this.props;
+    const { isFetching } = this.props;
+
     return (
       <div className="row">
         <div className="view-option">
           Show map as { this.renderViewOption() }
         </div>
         <div className="col-xxs-12">
-          <div className="filter">
-          </div>
+          { this.renderFilters() }
         </div>
         <div className="col-xxs-12" style={{ minHeight: '750px' }}>
           <div className="map-view">
             { isFetching && <p>Loading...</p> }
-            { locationsIds.length > 0 && this.renderMap() }
+            { !isFetching && this.renderMap() }
           </div>
         </div>
       </div>
@@ -123,7 +185,14 @@ class MapView extends Component {
 MapView.propTypes = {
   locationsById: PropTypes.object,
   locationsIds: PropTypes.arrayOf(PropTypes.number),
+  devicesById: PropTypes.object,
+  devicesIds: PropTypes.arrayOf(PropTypes.number),
+  itemIds: PropTypes.arrayOf(PropTypes.number),
+  itemById: PropTypes.object,
   loadMapLocations: PropTypes.func.isRequired,
+  loadDevices: PropTypes.func.isRequired,
+  loadItems: PropTypes.func.isRequired,
+
 };
 
 export default MapView;

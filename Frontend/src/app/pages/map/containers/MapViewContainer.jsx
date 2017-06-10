@@ -1,6 +1,6 @@
 import { connect } from 'react-redux';
 
-import { loadMapData, loadMapLocations } from '../../../redux/map/actions';
+import { loadDevices, loadMapLocations, loadItems } from '../../../redux/map/actions';
 import { navigateToPath } from '../../../actions';
 
 import MapView from '../components/MapView';
@@ -8,25 +8,31 @@ import MapView from '../components/MapView';
 const mapStateToProps = (state) => {
   const { map } = state;
   const {
-    earthquakeById,
-    earthquakeIds,
+    devicesById,
+    devicesIds,
     locationsById,
     locationsIds,
+    itemIds,
+    itemById,
     async
   } = map;
+  console.log(map);
   const { isFetching, error } = async;
   return {
-    earthquakeById,
-    earthquakeIds,
+    devicesById,
+    devicesIds,
     locationsById,
     locationsIds,
+    itemIds,
+    itemById,
     isFetching,
     error
   }
 };
 
 const mapDispatchToProps = ({
-  loadMapData,
+  loadItems,
+  loadDevices,
   loadMapLocations,
   navigateToPath,
 });

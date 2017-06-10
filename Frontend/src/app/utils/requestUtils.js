@@ -3,7 +3,6 @@ import * as serviceEndpoints from '../../../service_endpoints.json';
 export function getEnv() {
   const hostname = window.location.hostname;
   let env = '';
-  console.log(hostname);
   if (hostname.indexOf('localhost') === 0) {
     if (process.env.NODE_ENV === 'local') {
       env = 'local';
@@ -13,7 +12,6 @@ export function getEnv() {
   } else {
     env = 'prod';
   }
-  return 'local';
   return env;
 }
 
