@@ -1,0 +1,18 @@
+version: '2'
+services:
+
+  mysql:
+    container_name: coin_mysql_container
+    restart: always
+    image: mysql:latest
+    environment:
+      MYSQL_ROOT_PASSWORD: ${MYSQL_ROOT_PASSWORD}
+      MYSQL_DATABASE: ${MYSQL_COIN_DATABASE}
+      MYSQL_USER: ${MYSQL_COIN_USER}
+      MYSQL_PASSWORD: ${MYSQL_COIN_PASSWORD}
+    volumes:
+      - coin_mysql:/var/lib/mysql
+    ports:
+      - "3310:3306"
+volumes:
+ coin_mysql: 

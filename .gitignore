@@ -1,8 +1,10 @@
 .DS_Store
 .idea
+/**/credentials.php
 Frontend.iml
 /**/node_modules/
 /**/.DS-Store
 /**/npm-debug.log
 /**/.env*
 /**/yarn.lock
+/**/build

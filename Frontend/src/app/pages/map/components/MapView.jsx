@@ -1,97 +1,198 @@
 import React, { Component, PropTypes } from 'react';
 import Datamap from './DataMapComponent';
 
+const scopes = {
+  world: 'world',
+  usa: 'usa',
+};
+
+const initialState = {
+  scope: scopes.world,
+  device: '0',
+};
+
+const colors = {
+  1: '#342cbd',
+  2: '#ff7f0e',
+  3: '#2ca02c',
+  4: '#c6e33f',
+  5: '#8c564b',
+  6: '#d62728',
+  7: '#1f77b4',
+};
+
 class MapView extends Component {
   constructor(props) {
     super(props);
 
+    this.state = initialState;
+
+    this.handleOnChange = this.handleOnChange.bind(this);
+
+    this.renderViewOption = this.renderViewOption.bind(this);
+    this.renderFilters = this.renderFilters.bind(this);
     this.renderMap = this.renderMap.bind(this);
-    this.createDataMapBubbles = this.createDataMapBubbles.bind(this);
+    this.renderBubbles = this.renderBubbles.bind(this);
   }
 
   componentDidMount() {
-    this.props.loadMapData();
+    this.props.loadMapLocations();
+    this.props.loadDevices();
+    this.props.loadItems();
   }
 
-  createDataMapBubbles() {
-    const { earthquakeById, earthquakeIds } = this.props;
+  handleOnChange(key) {
+    return (event) => {
+      const { value } = event.target;
+      const newState = { ...this.state };
+      newState[key] = value;
+      this.setState(newState);
+    };
+  }
 
-    //const radius = 10;
+  renderViewOption() {
+    return (
+      <select
+        onChange={this.handleOnChange('scope')}
+        value={this.state.scope}
+      >
+        {Object.keys(scopes).map((key) => {
+          const scope = scopes[key];
+          return (
+            <option key={scope} value={scope}>{scope}</option>
+          )
+        })}
+      </select>
+    );
+  }
 
-    const bubbles = earthquakeIds.map((id) => {
-      const item = earthquakeById[id];
+  renderBubbles(locations) {
+    const { locationsIds, locationsById } = this.props;
 
-      const { location, lat, lng, magnitude, deaths } = item;
+    return locationsIds.map((id) => {
+      const location = locationsById[id];
+      const { name, Latitude, Longitude } = location;
 
       return {
-        name: location,
-        radius: deaths / 7500,
-        latitude: lat,
-        longitude: lng,
-        fillKey: 'bubbleFill'
-      };
+        name,
+        latitude: Latitude,
+        longitude: Longitude,
+        radius: 1.5,
+        fillKey: 'bubbleFill',
+      }
     });
-    return bubbles;
   }
 
   renderMap() {
-    const bubbles = this.createDataMapBubbles();
+    const { locationsIds, locationsById, itemIds, itemById } = this.props;
+    const { scope, device } = this.state;
+
+    // get proper locations
+    const locations = device === '0'
+      ? itemIds.map(id => itemById[id])
+      : itemIds.map(id => itemById[id])
+        .filter(item => {
+          return item.device.id === parseInt(device);
+        });
+
+    // create bubbles
+    const bubbles = locations.map((location) => {
+      const { device, name, latitude, longitude } = location;
+      const fillKey = device.id;
+      return {
+        name,
+        latitude: latitude,
+        longitude: longitude,
+        radius: 2.5,
+        fillKey,
+      };
+    });
+
+    const fills = {
+      ...colors,
+      defaultFill: '#EEEEEE',
+      bubbleFill: '#DD0000',
+    };
 
     return (
       <Datamap
         responsive
-        scope="world"
+        scope={scope}
         geographyConfig={{
           popupOnHover: false,
-          highlightOnHover: true // false
+          highlightOnHover: false, // false
         }}
-        fills={{
-          'USA': '#1f77b4',
-          'RUS': '#9467bd',
-          'PRK': '#ff7f0e',
-          'PRC': '#2ca02c',
-          'IND': '#e377c2',
-          'GBR': '#8c564b',
-          'FRA': '#d62728',
-          'PAK': '#7f7f7f',
-          defaultFill: '#EDDC4E',
-          bubbleFill: '#DD0000',
-        }}
-        data={{
-          'RUS': {fillKey: 'RUS'},
-          'PRK': {fillKey: 'PRK'},
-          'PRC': {fillKey: 'PRC'},
-          'IND': {fillKey: 'IND'},
-          'GBR': {fillKey: 'GBR'},
-          'FRA': {fillKey: 'FRA'},
-          'PAK': {fillKey: 'PAK'},
-          'USA': {fillKey: 'USA'},
-        }}
+        fills={fills}
         bubbles={bubbles}
         bubbleOptions={{
-          borderWidth: 1,
-          borderColor: '#FF0000'
+          borderWidth: 0,
+          borderColor: '#FF0000',
         }}
       />
     );
   }
 
-  render() {
-    const { earthquakeIds, isFetching } = this.props;
+  renderFilters() {
+    const { device } = this.state;
+    const { devicesIds, devicesById } = this.props;
     return (
-      <div className="map-view">
-        <h2>MapView</h2>
-        { isFetching && <p>Loading...</p> }
-        { earthquakeIds.length > 0 && this.renderMap() }
+      <div className="filter-section">
+        <div className="filter">
+          <label>Device</label>
+
+          { devicesIds.length > 0 && (
+            <select
+              value={device}
+              onChange={this.handleOnChange('device')}
+            >
+              <option value="0">All devices</option>
+              { devicesIds.map((id) => {
+                  const item = devicesById[id];
+                  return (
+                    <option key={item.id} value={item.id}>{item.name}</option>
+                  );
+                })
+              }
+            </select>
+          )}
+        </div>
       </div>
     );
+  }
+
+  render() {
+    const { isFetching } = this.props;
+
+    return (
+      <div className="row">
+        <div className="view-option">
+          Show map as { this.renderViewOption() }
+        </div>
+        <div className="col-xxs-12">
+          { this.renderFilters() }
+        </div>
+        <div className="col-xxs-12" style={{ minHeight: '750px' }}>
+          <div className="map-view">
+            { isFetching && <p>Loading...</p> }
+            { !isFetching && this.renderMap() }
+          </div>
+        </div>
+      </div>
+    )
   }
 }
 
 MapView.propTypes = {
-  earthquakeById: PropTypes.object,
-  earthquakeIds: PropTypes.arrayOf(PropTypes.number),
-  loadMapData: PropTypes.func.isRequired,
+  locationsById: PropTypes.object,
+  locationsIds: PropTypes.arrayOf(PropTypes.number),
+  devicesById: PropTypes.object,
+  devicesIds: PropTypes.arrayOf(PropTypes.number),
+  itemIds: PropTypes.arrayOf(PropTypes.number),
+  itemById: PropTypes.object,
+  loadMapLocations: PropTypes.func.isRequired,
+  loadDevices: PropTypes.func.isRequired,
+  loadItems: PropTypes.func.isRequired,
+
 };
 
 export default MapView;
