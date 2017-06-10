@@ -14,13 +14,11 @@ const createDeviceObject = (row) => {
             id: row.CategoryId,
             name: row.CategoryName,
         },
-        location: {
-            zip: row.PostalCode,
-            country: row.Country,
-            location: row.Location,
-            latitude: row.Latitude,
-            longitude: row.Longitude,
-        },
+        zip: row.PostalCode,
+        country: row.Country,
+        location: row.Location,
+        latitude: row.Latitude,
+        longitude: row.Longitude,
         shipping: {
             locations: row.ShipToLocations,
             cost: row.ShippingCost,
@@ -117,7 +115,7 @@ WHERE device.name IS NOT NULL AND items.ItemId = '${id}'`;
 
 const getAllLocations = (db) => {
     const promise = new Promise ((resolve, reject) => {
-        const query = `SELECT items.Latitude, items.Longitude
+        const query = `SELECT items.Title as title, items.Location as location, items.Latitude as latitude, items.Longitude as longitude
 FROM SearchItems items
 WHERE items.Latitude IS NOT NULL AND items.Longitude IS NOT NULL`;
         db.query(query, function(err, rows, fields) {
