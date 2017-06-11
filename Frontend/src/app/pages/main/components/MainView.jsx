@@ -3,8 +3,8 @@ import ReactDOM from 'react-dom';
 
 import { slide as Menu } from 'react-burger-menu';
 
-import Header from './Header';
 import MapViewContainer from '../../map/containers/MapViewContainer';
+import StaticView from './StaticView';
 
 class MainView extends Component {
   constructor(props) {
@@ -69,149 +69,7 @@ class MainView extends Component {
             <div className="content-container business">
               <h2>Business fields</h2>
               <h3>Possible use of VR technologies in the future</h3>
-
-              <div className="row">
-                <div className="off-md-1 col-xxs-12 col-md-4">
-                  <div className="image-container">
-                    <img src="/assets/images/museum.png" alt="Museum" />
-                  </div>
-                </div>
-                <div className="off-md-1 col-xxs-12 col-md-5">
-                  <div>
-                    <h4>Tourism & Museum</h4>
-                    <p>Lorem ipsum dolor sit amet, consetetur sadipscing elitr, sed diam nonumy eirmod tempor invidunt ut labore et dolore magna aliquyam erat, sed diam voluptua.
-                      At
-                      vero
-                      eos et accusam et justo duo dolores et ea rebum. Stet clita kasd gubergren, no sea takimata sanctus est Lorem ipsum dolor sit amet. Lorem ipsum dolor sit
-                      amet,
-                      consetetur sadipscing elitr, sed diam nonumy eirmod tempor invidunt ut labore et dolore magna aliquyam erat, sed diam voluptua. At vero eos et accusam et
-                      justo
-                      duo
-                      dolores et ea rebum. Stet clita kasd gubergren, no sea takimata sanctus est Lorem ipsum dolor sit amet.
-                    </p>
-                  </div>
-                </div>
-              </div>
-              <hr />
-
-              <div className="row reversed">
-                <div className="off-md-1 col-xxs-12 col-md-4">
-                  <div className="image-container">
-                    <img src="/assets/images/school.png" alt="School" />
-                  </div>
-                </div>
-                <div className="off-md-1 col-xxs-12 col-md-5">
-                  <div>
-                    <h4>Schooling & Training</h4>
-                    <p>Lorem ipsum dolor sit amet, consetetur sadipscing elitr, sed diam nonumy eirmod tempor invidunt ut labore et dolore magna aliquyam erat, sed diam voluptua.
-                      At
-                      vero
-                      eos et accusam et justo duo dolores et ea rebum. Stet clita kasd gubergren, no sea takimata sanctus est Lorem ipsum dolor sit amet. Lorem ipsum dolor sit
-                      amet,
-                      consetetur sadipscing elitr, sed diam nonumy eirmod tempor invidunt ut labore et dolore magna aliquyam erat, sed diam voluptua. At vero eos et accusam et
-                      justo
-                      duo
-                      dolores et ea rebum. Stet clita kasd gubergren, no sea takimata sanctus est Lorem ipsum dolor sit amet.
-                    </p>
-                  </div>
-                </div>
-              </div>
-              <hr />
-
-              <div className="row">
-                <div className="off-md-1 col-xxs-12 col-md-4">
-                  <div className="image-container">
-                    <img src="/assets/images/music.png" alt="Music" />
-                  </div>
-                </div>
-                <div className="off-md-1 col-xxs-12 col-md-5">
-                  <div>
-                    <h4>Music & Movies</h4>
-                    <p>Lorem ipsum dolor sit amet, consetetur sadipscing elitr, sed diam nonumy eirmod tempor invidunt ut labore et dolore magna aliquyam erat, sed diam voluptua.
-                      At
-                      vero
-                      eos et accusam et justo duo dolores et ea rebum. Stet clita kasd gubergren, no sea takimata sanctus est Lorem ipsum dolor sit amet. Lorem ipsum dolor sit
-                      amet,
-                      consetetur sadipscing elitr, sed diam nonumy eirmod tempor invidunt ut labore et dolore magna aliquyam erat, sed diam voluptua. At vero eos et accusam et
-                      justo
-                      duo
-                      dolores et ea rebum. Stet clita kasd gubergren, no sea takimata sanctus est Lorem ipsum dolor sit amet.
-                    </p>
-                  </div>
-                </div>
-              </div>
-              <hr />
-
-              <div className="row reversed">
-                <div className="off-md-1 col-xxs-12 col-md-4">
-                  <div className="image-container">
-                    <img src="/assets/images/healthcare.png" alt="Healthcare" />
-                  </div>
-                </div>
-                <div className="off-md-1 col-xxs-12 col-md-5">
-                  <div>
-                    <h4>Healthcare</h4>
-                    <p>Lorem ipsum dolor sit amet, consetetur sadipscing elitr, sed diam nonumy eirmod tempor invidunt ut labore et dolore magna aliquyam erat, sed diam voluptua.
-                      At
-                      vero
-                      eos et accusam et justo duo dolores et ea rebum. Stet clita kasd gubergren, no sea takimata sanctus est Lorem ipsum dolor sit amet. Lorem ipsum dolor sit
-                      amet,
-                      consetetur sadipscing elitr, sed diam nonumy eirmod tempor invidunt ut labore et dolore magna aliquyam erat, sed diam voluptua. At vero eos et accusam et
-                      justo
-                      duo
-                      dolores et ea rebum. Stet clita kasd gubergren, no sea takimata sanctus est Lorem ipsum dolor sit amet.
-                    </p>
-                  </div>
-                </div>
-              </div>
-              <hr />
-
-              <div className="row">
-                <div className="off-md-1 col-xxs-12 col-md-4">
-                  <div className="image-container">
-                    <img src="/assets/images/aerospace.png" alt="Aerospace" />
-                  </div>
-                </div>
-                <div className="off-md-1 col-xxs-12 col-md-5">
-                  <div>
-                    <h4>Aerospace & Military</h4>
-                    <p>Lorem ipsum dolor sit amet, consetetur sadipscing elitr, sed diam nonumy eirmod tempor invidunt ut labore et dolore magna aliquyam erat, sed diam voluptua.
-                      At
-                      vero
-                      eos et accusam et justo duo dolores et ea rebum. Stet clita kasd gubergren, no sea takimata sanctus est Lorem ipsum dolor sit amet. Lorem ipsum dolor sit
-                      amet,
-                      consetetur sadipscing elitr, sed diam nonumy eirmod tempor invidunt ut labore et dolore magna aliquyam erat, sed diam voluptua. At vero eos et accusam et
-                      justo
-                      duo
-                      dolores et ea rebum. Stet clita kasd gubergren, no sea takimata sanctus est Lorem ipsum dolor sit amet.
-                    </p>
-                  </div>
-                </div>
-              </div>
-              <hr />
-
-              <div className="row reversed">
-                <div className="off-md-1 col-xxs-12 col-md-4">
-                  <div className="image-container">
-                    <img src="/assets/images/porn.png" alt="Porn" />
-                  </div>
-                </div>
-                <div className="off-md-1 col-xxs-12 col-md-5">
-                  <div>
-                    <h4>Porn</h4>
-                    <p>Lorem ipsum dolor sit amet, consetetur sadipscing elitr, sed diam nonumy eirmod tempor invidunt ut labore et dolore magna aliquyam erat, sed diam voluptua.
-                      At
-                      vero
-                      eos et accusam et justo duo dolores et ea rebum. Stet clita kasd gubergren, no sea takimata sanctus est Lorem ipsum dolor sit amet. Lorem ipsum dolor sit
-                      amet,
-                      consetetur sadipscing elitr, sed diam nonumy eirmod tempor invidunt ut labore et dolore magna aliquyam erat, sed diam voluptua. At vero eos et accusam et
-                      justo
-                      duo
-                      dolores et ea rebum. Stet clita kasd gubergren, no sea takimata sanctus est Lorem ipsum dolor sit amet.
-                    </p>
-                  </div>
-                </div>
-              </div>
+              <StaticView />
             </div>
           </div>
           <div ref="products" className="light-bg-container">
@@ -277,7 +135,7 @@ class MainView extends Component {
 
                 <div className="col-xxs-12 col-xs-6 col-md-4">
                   <div className="image-container">
-                    <img src="/assets/images/Andreas.jpg" alt="Andreas" />
+                    <img src="/assets/images/profile/Andreas.jpg" alt="Andreas" />
                   </div>
                   <p>
                     <span className="name">Andreas Gasser</span>
@@ -289,7 +147,7 @@ class MainView extends Component {
 
                 <div className="col-xxs-12 col-xs-6 col-md-4">
                   <div className="image-container">
-                    <img src="/assets/images/martin.jpg" alt="Martin" />
+                    <img src="/assets/images/profile/martin.jpg" alt="Martin" />
                   </div>
                   <p>
                     <span className="name">Martin Lüpold</span>
@@ -300,7 +158,7 @@ class MainView extends Component {
 
                 <div className="col-xxs-12 col-xs-6 col-md-4">
                   <div className="image-container">
-                    <img src="/assets/images/matthias.jpg" alt="Matthias" />
+                    <img src="/assets/images/profile/matthias.jpg" alt="Matthias" />
                   </div>
                   <p>
                     <span className="name">Matthias Langhard</span>
@@ -311,7 +169,7 @@ class MainView extends Component {
 
                 <div className="col-xxs-12 col-xs-6 col-md-4">
                   <div className="image-container">
-                    <img src="/assets/images/Lukas.jpg" alt="Lukas" />
+                    <img src="/assets/images/profile/Lukas.jpg" alt="Lukas" />
                   </div>
                   <p>
                     <span className="name">Lukas Klier</span>
@@ -322,7 +180,7 @@ class MainView extends Component {
 
                 <div className="col-xxs-12 col-xs-6 col-md-4">
                   <div className="image-container">
-                    <img src="/assets/images/Florian.jpg" alt="Florian" />
+                    <img src="/assets/images/profile/Florian.jpg" alt="Florian" />
                   </div>
                   <p>
                     <span className="name">Florian Häfliger</span>
@@ -333,7 +191,7 @@ class MainView extends Component {
 
                 <div className="col-xxs-12 col-xs-6 col-md-4">
                   <div className="image-container">
-                    <img src="/assets/images/Devin.jpg" alt="Devin" />
+                    <img src="/assets/images/profile/Devin.jpg" alt="Devin" />
                   </div>
                   <p>
                     <span className="name">Devin Baumsteiger</span>
@@ -345,7 +203,7 @@ class MainView extends Component {
 
                 <div className="col-xxs-12 col-xs-6 col-md-4">
                   <div className="image-container">
-                    <img src="/assets/images/yin.jpg" alt="Yin" />
+                    <img src="/assets/images/profile/yin.jpg" alt="Yin" />
                   </div>
                   <p>
                     <span className="name">Yin Wai</span>
@@ -356,7 +214,7 @@ class MainView extends Component {
 
                 <div className="col-xxs-12 col-xs-6 col-md-4">
                   <div className="image-container">
-                    <img src="/assets/images/Leo.jpg" alt="Leo" />
+                    <img src="/assets/images/profile/Leo.jpg" alt="Leo" />
                   </div>
                   <p>
                     <span className="name">Zhe Liu</span>
@@ -368,7 +226,7 @@ class MainView extends Component {
 
                 <div className="col-xxs-12 col-xs-6 col-md-4">
                   <div className="image-container">
-                    <img src="/assets/images/gakki.jpg" alt="Gakki" />
+                    <img src="/assets/images/profile/gakki.jpg" alt="Gakki" />
                   </div>
                   <p>
                     <span className="name">Yang Wang</span>
