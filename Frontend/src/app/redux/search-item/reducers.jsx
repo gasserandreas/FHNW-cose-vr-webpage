@@ -2,6 +2,7 @@ import {
   SEARCH_ITEMS_LOAD_REQUEST,
   SEARCH_ITEMS_LOAD_REQUEST_SUCCESS,
   SEARCH_ITEMS_LOAD_REQUEST_FAILURE,
+  CHANGE_SORT_ORDER,
 } from './consts';
 
 const itemById = (state = {}, action) => {

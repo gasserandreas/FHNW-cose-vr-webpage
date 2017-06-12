@@ -19,6 +19,17 @@ class EbayItemsComponent extends Component {
               <Field name="search" id="search" component="input" type="text" placeholder="Search for a product" />
             </div>
           </div>
+          <div className="col-xxs-12 col-sm-6">
+            <div className="input-container sort">
+              <label htmlFor="sort">Sort:</label>
+              <Field name="sort" id="sort" component="select">
+                <option value="0" selected={true}>Name</option>
+                <option value="1">Price descending</option>
+                <option value="2">Biders descending</option>
+                <option value="3">Interested descending</option>
+              </Field>
+            </div>
+          </div>
         </div>
         <div className="row">
           <div className="col-xxs-12">
@@ -34,12 +45,12 @@ class EbayItemsComponent extends Component {
                 </thead>
                 <tbody>
                 {
-                  this.props.searchItemById && Object.keys(this.props.searchItemById).map((key, index) => (
+                  this.props.searchItemById && this.props.searchItemById.map((item, index) => (
                     <tr key={`search-item-${index}`}>
-                      <td className="Product" data-title="Product">{this.props.searchItemById[key].device.name}</td>
-                      <td data-title="Biders">{this.props.searchItemById[key].sellingStatus.bidCount > 0 ? this.props.searchItemById[key].sellingStatus.bidCount : 0}</td>
-                      <td data-title="Interesteds">{this.props.searchItemById[key].sellingStatus.interestCount}</td>
-                      <td data-title="Price" className="text-right-align">$ {this.props.searchItemById[key].sellingStatus.currentPrice}</td>
+                      <td className="Product" data-title="Product">{item.device.name}</td>
+                      <td data-title="Biders">{item.sellingStatus.bidCount > 0 ? item.sellingStatus.bidCount : 0}</td>
+                      <td data-title="Interesteds">{item.sellingStatus.interestCount}</td>
+                      <td data-title="Price" className="text-right-align">$ {item.sellingStatus.currentPrice}</td>
                     </tr>
                   ))
                 }
@@ -61,7 +72,7 @@ class EbayItemsComponent extends Component {
 EbayItemsComponent.propTypes = {
   loadSearchItems: PropTypes.func.isRequired,
   async: PropTypes.shape({}),
-  searchItemById: PropTypes.shape({}),
+  searchItemById: PropTypes.arrayOf(PropTypes.shape({})),
   searchItemIds: PropTypes.arrayOf(PropTypes.number),
 };
 

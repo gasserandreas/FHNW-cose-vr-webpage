@@ -399,6 +399,33 @@ table {
   }
 }
 
+.input-container.sort {
+  text-align: right;
+
+  @media all and(max-width: -1 + $breakpoint-sm) {
+    text-align: left;
+    margin-bottom: 1rem;
+
+  }
+
+  label {
+    margin-right: 1rem;
+    display: inline-block;
+  }
+  select {
+    width: 100%;
+    max-width: 250px;
+    color: $color-dark-grey;
+    border: none;
+    border-bottom: 1px solid $color-dark-grey;
+    border-radius: 0px !important;
+    height: 34px;
+    line-height: 34px;
+    vertical-align: middle;
+  }
+
+}
+
 .team {
 
   .row > div {
