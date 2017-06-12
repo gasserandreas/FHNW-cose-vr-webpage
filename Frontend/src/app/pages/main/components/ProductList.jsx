@@ -32,7 +32,7 @@ const renderHashtagRow = ({ green, red }) => {
   return (
     <div className="row hashtag-list-row">
       <div className="col-xxs-12 col-xs-6 legend">
-        Most used hastags:
+        Most used hashtags:
       </div>
 
       <div className="col-xxs-12 col-xs-6">
