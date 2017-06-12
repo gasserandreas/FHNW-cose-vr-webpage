@@ -26,32 +26,8 @@ SELECT * FROM Tag
 WHERE 
 	value LIKE 'microsoft'
     ;
-/*
-( 13, 5)
-( 14, 5)
-( 39, 3)
-( 42, 1)
-( 69, 4)
-( 80, 6)
-( 87, 1)
-( 124, 2)
-( 132, 3)
-( 133, 2)
-( 134, 4)
-( 834, 6)
-( 676, 7)
-( ,)
-/*
-(1,'Sony PlayStation VR'),
-(2,'HTC Vive'),
-(3,'Oculus Rift'),
-(4,'Google Daydream View'),
-(5,'Samsung Gear VR'),
-(6,'Merge VR Goggles'),
-(7,'Hololense')
-*/
 
-select count(*), search.DeviceName FROM (
+select count(*) AS counter, search.DeviceName FROM (
 SELECT DISTINCT
     items.*,
     device.id as DeviceId,
@@ -68,7 +44,12 @@ LEFT JOIN Device device
 WHERE device.name IS NOT NULL AND items.Latitude IS NOT NULL
 ) search
 GROUP BY search.DeviceId
+ORDER BY counter DESC
 ;
+
+SELECT items.Title as title, items.Location as location, items.Latitude as latitude, items.Longitude as longitude
+FROM SearchItems items
+WHERE items.Latitude IS NOT NULL AND items.Longitude IS NOT NULL;
 
 SELECT DISTINCT
     items.*,
@@ -85,4 +66,30 @@ LEFT JOIN Device device
     ON device.id = tagToDevice.DeviceId
 WHERE device.name IS NOT NULL AND items.ItemId = '112244278859';
 
--- location
+SELECT count(*), ItemId FROM (
+SELECT
+	innerQuery.*,
+    sellingStatus.*
+FROM (
+	SELECT DISTINCT
+		items.*,
+		device.id as DeviceId,
+		device.name as DeviceName
+	FROM SearchItems items
+	LEFT JOIN TagToItem tagToItem
+		ON items.ItemId = tagToItem.ItemId
+	LEFT JOIN Tag tag
+		ON tagToItem.TagId = tag.id
+	LEFT JOIN TagToDevice tagToDevice
+		ON tagToDevice.TagId = tag.id
+	LEFT JOIN Device device
+		ON device.id = tagToDevice.DeviceId
+	WHERE device.name IS NOT NULL
+) innerQuery
+LEFT JOIN SellingStatusDbModel sellingStatus
+	ON innerQuery.SellingStatusId = sellingStatus.id
+    )
+;
+
+SELECT * FROM SellingStatusDbModel
+ORDER BY InterestCount DESC;

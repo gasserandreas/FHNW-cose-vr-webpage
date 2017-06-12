@@ -254,6 +254,17 @@ router.route('/items/:item_id')
     })
   });
 
+router.route('/distinct/items')
+  .get((req, res) => {
+    factory.getAllItemDistinct(db)
+    .then((rows) => {
+      res.json(rows);
+    })
+    .catch((error) => {
+      res.send(error);
+    });
+  })
+
 router.route('/locations')
   .get((req, res) => {
     factory.getAllLocations(db)

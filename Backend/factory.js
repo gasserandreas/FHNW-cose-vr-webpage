@@ -5,7 +5,6 @@ const createDeviceObject = (row) => {
         title: row.Titel,
         conditionId: row.ConditionId,
         listingInfoId: row.ListingInfoId,
-        sellingStatusId: row.SellingStatusId,
         urls: {
             gallery: row.GalleryUrl,
             item: row.ViewItemUrl,
@@ -27,6 +26,13 @@ const createDeviceObject = (row) => {
         device: {
             id: row.DeviceId,
             name: row.DeviceName,
+        },
+        sellingStatus: {
+            id: row.Id,
+            bidCount: row.BidCount,
+            currentPrice: row.CurrentPrice,
+            interestCount: row.InterestCount,
+            sellingStatus: row.SellingState,
         },
     };
 };
@@ -54,9 +60,12 @@ const getAllItems = (db) => {
     const promise = new Promise((resolve, reject) => {
         const query = `SELECT DISTINCT
     items.*,
+    selling.*,
     device.id as DeviceId,
     device.name as DeviceName
 FROM SearchItems items
+LEFT JOIN SellingStatusDbModel selling
+    ON items.SellingStatusId = selling.id
 LEFT JOIN TagToItem tagToItem
     ON items.ItemId = tagToItem.ItemId
 LEFT JOIN Tag tag
@@ -123,6 +132,50 @@ WHERE items.Latitude IS NOT NULL AND items.Longitude IS NOT NULL`;
                 reject(err);
             } else {
                 resolve(rows);
+            }
+        });
+    });
+    return promise;
+}
+
+const getAllItemDistinct = (db) => {
+    const promise = new Promise((resolve, reject) => {
+        const query = `SELECT
+    items.*,
+    selling.*,
+    device.id as DeviceId,
+    device.name as DeviceName
+FROM SearchItems items
+LEFT JOIN SellingStatusDbModel selling
+    ON items.SellingStatusId = selling.id
+LEFT JOIN TagToItem tagToItem
+    ON items.ItemId = tagToItem.ItemId
+LEFT JOIN Tag tag
+    ON tagToItem.TagId = tag.id
+LEFT JOIN TagToDevice tagToDevice
+    ON tagToDevice.TagId = tag.id
+LEFT JOIN Device device
+    ON device.id = tagToDevice.DeviceId
+WHERE device.name IS NOT NULL
+ORDER  BY items.ItemId`;
+
+        db.query(query, function(err, rows, fields) {
+            if (err) {
+                reject(err);
+            } else {
+                const items = [];
+                var lastItem = null;;
+                rows.forEach((row) => {
+                    const { ItemId } = row;
+
+                    if (!lastItem || ItemId !== lastItem.id) {
+                        const item = createDeviceObject(row);
+                        lastItem = item;
+                        items.push(item);
+                    } 
+                });
+
+                resolve(items);
             }
         });
     });
@@ -197,6 +250,7 @@ WHERE device.name IS NOT NULL AND items.Longitude IS NOT NULL AND items.Latitude
 
 module.exports = {
     getAllItems,
+    getAllItemDistinct,
     getItemWithId,
     getAllLocation,
     getAllLocations,
