@@ -47,7 +47,6 @@ const locationsById = (state = {}, action) => {
 };
 
 const itemIds = (state = [], action) => {
-  console.log(action);
   switch (action.type) {
     case MAP_DATA_LOAD_ALL_ITEMS_SUCCESS:
       return action.itemsIds;

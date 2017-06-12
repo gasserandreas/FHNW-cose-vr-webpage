@@ -138,7 +138,7 @@ class MapView extends Component {
     return (
       <div className="filter-section">
         <div className="filter">
-          <label>Device</label>
+          <label>Device: </label>
 
           { devicesIds.length > 0 && (
             <select
@@ -165,13 +165,15 @@ class MapView extends Component {
 
     return (
       <div className="row">
-        <div className="view-option">
-          Show map as { this.renderViewOption() }
-        </div>
-        <div className="col-xxs-12">
+        <div className="col-xxs-12 col-xs-6">
           { this.renderFilters() }
         </div>
-        <div className="col-xxs-12" style={{ minHeight: '750px' }}>
+        <div className="col-xxs-12 col-xs-6">
+          <div className="view-option">
+            Show map as: { this.renderViewOption() }
+          </div>
+        </div>
+        <div className="col-xxs-12">
           <div className="map-view">
             { isFetching && <p>Loading...</p> }
             { !isFetching && this.renderMap() }

@@ -16,7 +16,6 @@ const mapStateToProps = (state) => {
     itemById,
     async
   } = map;
-  console.log(map);
   const { isFetching, error } = async;
   return {
     devicesById,
