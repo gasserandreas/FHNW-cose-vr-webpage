@@ -22,8 +22,8 @@ class EbayItemsComponent extends Component {
           <div className="col-xxs-12 col-sm-6">
             <div className="input-container sort">
               <label htmlFor="sort">Sort:</label>
-              <Field name="sort" id="sort" component="select">
-                <option value="0" selected={true}>Name</option>
+              <Field defaultValue={"0"} name="sort" id="sort" component="select">
+                <option>Name</option>
                 <option value="1">Price descending</option>
                 <option value="2">Biders descending</option>
                 <option value="3">Interested descending</option>
