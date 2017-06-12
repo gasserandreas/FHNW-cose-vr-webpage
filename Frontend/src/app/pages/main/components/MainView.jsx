@@ -5,6 +5,7 @@ import { slide as Menu } from 'react-burger-menu';
 
 import MapViewContainer from '../../map/containers/MapViewContainer';
 import StaticView from './StaticView';
+import EbayItemsContainer from '../../ebay-item/containers/EbayItemsContainer';
 
 class MainView extends Component {
   constructor(props) {
@@ -62,7 +63,7 @@ class MainView extends Component {
             <div className="content-container">
               <h2>Geolocations of VR technologies</h2>
               <h3>Where to find and buy VR products</h3>
-              <MapViewContainer/>
+              <MapViewContainer />
             </div>
           </div>
           <div ref="business" className="white-bg-container">
@@ -76,55 +77,7 @@ class MainView extends Component {
             <div className="content-container">
               <h2>Products on the market</h2>
               <h3>What products are sold on Ebay, where and how much</h3>
-              <div className="row">
-                <div className="col-xxs-12 col-sm-6">
-                  <div className="input-container search">
-                    <input type="text" name="search" id="search" placeholder="Search for a product" />
-                  </div>
-                </div>
-              </div>
-              <div className="row">
-                <div className="col-xxs-12">
-                  <div className="table-container">
-                    <table cellPadding="0" cellSpacing="0">
-                      <thead>
-                      <tr>
-                        <th>Product</th>
-                        <th>No. of biders</th>
-                        <th>No. of interesteds</th>
-                        <th className="text-right-align">Price</th>
-                      </tr>
-                      </thead>
-                      <tbody>
-                      <tr>
-                        <td className="Product" data-title="Product">Sony VR</td>
-                        <td data-title="Biders">120</td>
-                        <td data-title="Interesteds">340</td>
-                        <td data-title="Price" className="text-right-align">$ 340</td>
-                      </tr>
-                      <tr>
-                        <td className="Product" data-title="Product">Sony VR</td>
-                        <td data-title="Biders">120</td>
-                        <td data-title="Interesteds">340</td>
-                        <td data-title="Price" className="text-right-align">$ 340</td>
-                      </tr>
-                      <tr>
-                        <td className="Product" data-title="Product">Sony VR</td>
-                        <td data-title="Biders">120</td>
-                        <td data-title="Interesteds">340</td>
-                        <td data-title="Price" className="text-right-align">$ 340</td>
-                      </tr>
-                      <tr>
-                        <td className="product" data-title="Product">Sony VR</td>
-                        <td data-title="Biders">120</td>
-                        <td data-title="Interesteds">340</td>
-                        <td data-title="Price" className="text-right-align">$ 340</td>
-                      </tr>
-                      </tbody>
-                    </table>
-                  </div>
-                </div>
-              </div>
+              <EbayItemsContainer />
             </div>
           </div>
           <div ref="team" className="white-bg-container">

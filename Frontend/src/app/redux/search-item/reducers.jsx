@@ -9,7 +9,7 @@ const itemById = (state = {}, action) => {
     case SEARCH_ITEMS_LOAD_REQUEST:
       return state;
     case SEARCH_ITEMS_LOAD_REQUEST_SUCCESS:
-      return action.searchItems;
+      return { ...action.searchItems };
     default:
       return state;
   }
@@ -49,10 +49,10 @@ const asyncItem = (state = {
   }
 };
 
-const raceEvents = (state = {}, action) => ({
+const searchItems = (state = {}, action) => ({
   async: asyncItem(state.async, action),
-  ids: itemIds(state.searchItemIds, action),
-  byId: itemById(state.searchItems, action),
+  ids: itemIds(state.ids, action),
+  byId: itemById(state.byId, action),
 });
 
-export default raceEvents;
+export default searchItems;
