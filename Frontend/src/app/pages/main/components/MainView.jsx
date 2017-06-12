@@ -172,7 +172,7 @@ class MainView extends Component {
                   <p>
                     <span className="name">Zhe Liu</span>
                     Computer Science <br />
-                    Jilin, HKG
+                    Jilin, HK
                   </p>
                 </div>
 
@@ -184,7 +184,7 @@ class MainView extends Component {
                   <p>
                     <span className="name">Yang Wang</span>
                     Marketing <br />
-                    Jilin, HKG
+                    Jilin, HK
                   </p>
                 </div>
 
