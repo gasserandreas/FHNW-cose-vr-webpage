@@ -2,6 +2,7 @@ const path = require('path');
 const webpack = require('webpack');
 const webpackMerge = require('webpack-merge');
 const DashboardPlugin = require('webpack-dashboard/plugin');
+const CopyWebpackPlugin = require('copy-webpack-plugin');
 const commonConfig = require('./webpack.common.js');
 
 process.env.BABEL_ENV = process.env.npm_lifecycle_event;
@@ -46,6 +47,9 @@ module.exports = webpackMerge(commonConfig, {
   },
   plugins: [
     new DashboardPlugin(),
+    new CopyWebpackPlugin([
+      { from: './assets', to: 'assets' }
+    ]),
     new webpack.NamedModulesPlugin(),
     new webpack.HotModuleReplacementPlugin(),
     new webpack.optimize.CommonsChunkPlugin({ name: ['app', 'vendors', 'polyfills'] }),

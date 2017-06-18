@@ -1,8 +1,12 @@
-@import url('https://fonts.googleapis.com/css?family=Lato:100,100i,300,300i,400,400i,700,700i,900,900i');
-@import url('https://fonts.googleapis.com/css?family=Heebo:100,300,400,700');
-@import url('https://maxcdn.bootstrapcdn.com/font-awesome/4.4.0/css/font-awesome.min.css');
-@import url('https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css');
+@import '../../node_modules/normalize-scss/sass/normalize';
+@import url('https://fonts.googleapis.com/css?family=Roboto:100,100i,300,300i,400,400i,700,700i,900,900i');
+@import url('https://cdnjs.cloudflare.com/ajax/libs/ionicons/2.0.1/css/ionicons.css');
 
+@import './common/variables', './common/scss-grid', './common/common', './common/layout';
+@import './pages/map', './pages/static';
+@import './components/burger-menu';
+
+/*
 // vars
 $font-color: #333333;
 $font-color-light: #999999;
@@ -106,3 +110,4 @@ circle:hover {
   text-anchor: middle;
 }
 
+*/

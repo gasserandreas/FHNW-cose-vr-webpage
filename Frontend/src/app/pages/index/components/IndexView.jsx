@@ -1,7 +1,6 @@
 import React from 'react';
 
 const IndexView = (props) => {
-  console.log('IndexView');
   console.log(props);
   return (
     <div className="container index-view">

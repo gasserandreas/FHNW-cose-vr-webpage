@@ -3,6 +3,7 @@ const webpack = require('webpack');
 const webpackMerge = require('webpack-merge');
 const CleanWebpackPlugin = require('clean-webpack-plugin');
 const ExtractTextPlugin = require('extract-text-webpack-plugin');
+const CopyWebpackPlugin = require('copy-webpack-plugin');
 const commonConfig = require('./webpack.common.js');
 
 process.env.BABEL_ENV = process.env.npm_lifecycle_event;
@@ -10,7 +11,7 @@ process.env.BABEL_ENV = process.env.npm_lifecycle_event;
 const PATHS = {
   src: path.join(__dirname, '../../src'),
   app: path.join(__dirname, '../../src/app'),
-  build: path.join(__dirname, '../../resources'),
+  build: path.join(__dirname, '../../build'),
   styles: path.join(__dirname, '../../src/styles'),
 };
 
@@ -47,9 +48,11 @@ module.exports = webpackMerge(commonConfig, {
   },
   plugins: [
     new ExtractTextPlugin('assets/[name].[hash].css'),
-    new CleanWebpackPlugin(['./resources'], {
-      root: path.join(__dirname, '../../../'),
-      exclude: ['WEB-INF', 'META-INF', 'modules', 'log4j2.xml', 'arquillian.xml', 'project-local.yml', 'project-stages.yml', 'project-integration.yml', 'project-test.yml', 'project-prod.yml'],
+    new CopyWebpackPlugin([
+      { from: './assets', to: 'assets' }
+    ]),
+    new CleanWebpackPlugin(['./build'], {
+      root: path.join(__dirname, '../../'),
       verbose: false,
       dry: false,
     }),
